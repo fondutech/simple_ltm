@@ -1,2 +1,2 @@
 # simple_ltm
-Practical long term memory for ai apps
+Pragmatic long term memory for ai apps
