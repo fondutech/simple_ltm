@@ -144,6 +144,15 @@ ENV/
 env.bak/
 venv.bak/
 
+# Secrets
+set_secrets.sh
+
+# Database files
+*.db
+memory.db
+example.db
+simple_chat.db
+
 # Spyder project settings
 .spyderproject
 .spyproject
