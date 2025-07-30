@@ -11,7 +11,7 @@ Shows how the memory system works:
 
 import asyncio
 import os
-from src.simple_ltm import LongTermMemory, MemoryAgent
+from simple_ltm import LongTermMemory, MemoryAgent
 
 
 async def main():

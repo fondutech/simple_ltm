@@ -118,7 +118,7 @@ def create_memory_tool(
     Returns:
         A LangChain tool that can be used by agents
     """
-    llm = llm or ChatAnthropic(model="claude-sonnet-4", temperature=0)
+    llm = llm or ChatAnthropic(model="claude-sonnet-4-20250514", temperature=0)
     
     @tool
     async def update_memory(new_information: str) -> str:

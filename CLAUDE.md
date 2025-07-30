@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a long-term memory system for chatbots that allows them to remember information across conversations. The agent uses Claude (Anthropic) to autonomously decide what information is worth remembering - no heuristics or rules, just intelligent decision-making.
+This is a teaching example demonstrating how simple string-based memory can power sophisticated AI applications. It shows that effective long-term memory doesn't require vector databases, embeddings, or complex retrieval - just two strings and intelligent merging.
 
 ## Key Design Decisions
 
@@ -35,11 +35,8 @@ source set_secrets.sh && poetry run pytest
 ## Development Commands
 
 ```bash
-# Run CLI
-poetry run ltm
-
-# Run API server  
-poetry run ltm-api
+# Run the Chainlit web app
+chainlit run src/simple_ltm/app.py
 
 # Run specific test categories
 poetry run pytest -k TestMemoryStorage  # Just storage tests
@@ -49,8 +46,17 @@ poetry run pytest -k test_agent         # Just agent tests (need API key)
 ## Architecture Notes
 
 - `src/simple_ltm/memory.py` - Core SQLite storage, very simple CRUD
-- `src/simple_ltm/agent.py` - ReAct agent using `create_react_agent` 
+- `src/simple_ltm/agent.py` - ReAct agent using LangGraph StateGraph
+- `src/simple_ltm/app.py` - Modern web UI with Chainlit
 - `src/simple_ltm/prompts.py` - Clean, simple prompts
+- `src/simple_ltm/meta_prompts.py` - Agent behavior instructions
 - Tests validate the agent's autonomous decision-making
 
 The system is intentionally simple - complexity comes from Claude's intelligence, not the code.
+
+## Recent Updates
+
+- **Chainlit Web UI**: Modern web interface with ChatGPT-style UI
+- **Memory sidebar**: See memory updates in real-time
+- **Tool tracing**: Expandable view of agent actions
+- **Model**: Uses Claude Sonnet 4 (claude-sonnet-4-20250514) by default

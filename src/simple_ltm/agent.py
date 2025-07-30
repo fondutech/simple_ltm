@@ -13,20 +13,17 @@ No heuristics - the agent decides autonomously what's worth remembering!
 """
 
 import asyncio
-from typing import List, Optional
-
-from typing import Annotated, Sequence, TypedDict
 import json
+from typing import Annotated, Optional, Sequence, TypedDict
 
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, ToolMessage
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import StateGraph, END
 from langgraph.graph.message import add_messages
-from langgraph.prebuilt import create_react_agent
 
 from .memory import LongTermMemory, create_memory_tool
-from .prompts import AGENT_SYSTEM_TEMPLATE
+from .prompts import format_agent_system_prompt
 
 
 
@@ -70,19 +67,60 @@ class MemoryAgent:
         # Create memory tool
         self.update_memory_tool = create_memory_tool(self.memory_store, self.user_id, self.llm)
         self.tools = [self.update_memory_tool]
+        self.tools_by_name = {t.name: t for t in self.tools}
+        
+        # Bind tools to model
         self.model_with_tools = self.llm.bind_tools(self.tools)
-        self.agent = create_react_agent(model=self.model_with_tools, tools=self.tools)
+        
+        # Define state
+        class AgentState(TypedDict):
+            messages: Annotated[Sequence[BaseMessage], add_messages]
+        
+        # Build graph
+        builder = StateGraph(AgentState)
+        builder.add_node("agent", self._call_model)
+        builder.add_node("tools", self._tool_node)
+        builder.set_entry_point("agent")
+        builder.add_conditional_edges(
+            "agent", 
+            self._should_continue,
+            {"continue": "tools", "end": END}
+        )
+        builder.add_edge("tools", "agent")
+        
+        self.agent = builder.compile()
         
     async def _call_model(self, state, cfg: RunnableConfig = None):
         """Call the LLM with current state."""
         # Get current memory and create system message
         current_memory = self.memory_store.read(self.user_id)
-        system = SystemMessage(content=AGENT_SYSTEM_TEMPLATE.format(user_memory=current_memory))
+        system = SystemMessage(content=format_agent_system_prompt(existing_user_memory=current_memory))
         
         # Invoke model with system message + conversation
         messages = [system] + state["messages"]
         response = await self.model_with_tools.ainvoke(messages, cfg)
         return {"messages": [response]}
+    
+    async def _tool_node(self, state):
+        """Execute tool calls from the last message."""
+        results = []
+        for tool_call in state["messages"][-1].tool_calls:
+            if tool_call["name"] in self.tools_by_name:
+                result = await self.tools_by_name[tool_call["name"]].ainvoke(tool_call["args"])
+                results.append(
+                    ToolMessage(
+                        content=json.dumps(result) if not isinstance(result, str) else result,
+                        tool_call_id=tool_call["id"]
+                    )
+                )
+        return {"messages": results}
+    
+    def _should_continue(self, state):
+        """Determine if we should continue to tools or end."""
+        last_message = state["messages"][-1]
+        if hasattr(last_message, "tool_calls") and last_message.tool_calls:
+            return "continue"
+        return "end"
     
     async def chat(self, message: str) -> str:
         """
@@ -97,13 +135,8 @@ class MemoryAgent:
         # Add user message to history
         self.conversation_history.append(HumanMessage(content=message))
         
-        # Create system message with current memory
-        current_memory = self.memory_store.read(self.user_id)
-        system_msg = SystemMessage(
-            content=AGENT_SYSTEM_TEMPLATE.format(user_memory=current_memory)
-        )
-        
         # Run the ReAct agent with conversation history
+        # Note: System message is created in _call_model with current memory
         result = await self.agent.ainvoke({"messages": self.conversation_history})
         
         # Update conversation history with new messages
@@ -116,31 +149,3 @@ class MemoryAgent:
     def chat_sync(self, message: str) -> str:
         """Synchronous version of chat for convenience."""
         return asyncio.run(self.chat(message))
-
-
-def demo():
-    """Interactive demo of the memory agent."""
-    user_id = input("Enter your user ID (or press Enter for 'default'): ").strip()
-    if not user_id:
-        user_id = "default"
-    
-    agent = MemoryAgent(user_id)
-    print(f"\nStarting conversation for user: {user_id}")
-    print("Type 'exit' to quit, 'memory' to see your current memory\n")
-    
-    while True:
-        user_input = input("You: ")
-        
-        if user_input.lower() == "exit":
-            break
-        elif user_input.lower() == "memory":
-            memory = agent.memory_store.read(user_id)
-            print(f"Current memory: {memory if memory else '(empty)'}")
-            continue
-        
-        response = agent.chat_sync(user_input)
-        print(f"Assistant: {response}\n")
-
-
-if __name__ == "__main__":
-    demo()
