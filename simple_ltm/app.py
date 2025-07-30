@@ -161,7 +161,7 @@ async def clear_memory(action: cl.Action):
 def main():
     """Entry point for the Chainlit app."""
     # This is called by poetry script, but chainlit run is the actual entry
-    print("To run the Chainlit app, use: chainlit run simple_ltm/app.py")
+    print("To run the Chainlit app, use: chainlit run -m simple_ltm.app")
     print("Or if installed: chainlit run -m simple_ltm.app")
 
 

@@ -25,14 +25,14 @@ This implementation demonstrates the "Single String Memory" architecture from th
 ## Quick Start
 
 ```bash
-# Install
+# Install dependencies and package
 poetry install
 
 # Set API key
 export ANTHROPIC_API_KEY="your-key"
 
-# Run the web UI
-chainlit run simple_ltm/app.py
+# Run the web UI (use -m flag for module)
+chainlit run -m simple_ltm.app
 ```
 
 ## How It Works
