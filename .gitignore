@@ -157,6 +157,9 @@ simple_chat.db
 chainlit.md
 .chainlit/
 
+# Development notes
+CLAUDE.md
+
 # PDF and documentation
 *.pdf
 
