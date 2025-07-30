@@ -14,8 +14,8 @@ import os
 
 import chainlit as cl
 
-from simple_ltm.agent import MemoryAgent
-from simple_ltm.memory import LongTermMemory
+from agent import MemoryAgent
+from memory import LongTermMemory
 
 
 # Initialize memory store
@@ -161,8 +161,8 @@ async def clear_memory(action: cl.Action):
 def main():
     """Entry point for the Chainlit app."""
     # This is called by poetry script, but chainlit run is the actual entry
-    print("To run the Chainlit app, use: chainlit run -m simple_ltm.app")
-    print("Or if installed: chainlit run -m simple_ltm.app")
+    print("To run the Chainlit app, use:")
+    print("cd simple_ltm && chainlit run app.py")
 
 
 if __name__ == "__main__":

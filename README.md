@@ -31,8 +31,8 @@ poetry install
 # Set API key
 export ANTHROPIC_API_KEY="your-key"
 
-# Run the web UI (use -m flag for module)
-chainlit run -m simple_ltm.app
+# Run the web UI
+cd simple_ltm && chainlit run app.py
 ```
 
 ## How It Works
@@ -42,22 +42,18 @@ chainlit run -m simple_ltm.app
 3. New info is merged with existing memory via LLM
 4. Memory persists across conversations
 
-The entire implementation is ~500 lines of Python.
+The entire implementation is ~600 lines of Python.
 
-## Example Usage
+## Example Conversation
 
-```python
-from simple_ltm import MemoryAgent
+In the web UI:
+```
+User: I'm learning Spanish for my trip to Barcelona
+Assistant: That's exciting! Learning Spanish for your Barcelona trip will definitely enhance your experience.
+[Memory updated: I'm learning Spanish for a trip to Barcelona [recorded:2025-01-30]]
 
-agent = MemoryAgent("alice")
-
-# First conversation
-await agent.chat("I'm learning Spanish for my trip to Barcelona")
-# Memory: "I'm learning Spanish for a trip to Barcelona [recorded:2025-01-30]"
-
-# New conversation
-await agent.chat("What was I learning?")
-# Agent recalls the Spanish learning goal
+User: What was I learning?
+Assistant: You're learning Spanish for your upcoming trip to Barcelona!
 ```
 
 ## Key Features
@@ -74,6 +70,7 @@ simple_ltm/
 ├── memory.py       # SQLite storage (create, read, update, delete)
 ├── agent.py        # ReAct agent with memory tool
 ├── prompts.py      # Instructions for memory merging
+├── meta_prompts.py # System prompts and tool instructions
 └── app.py          # Chainlit web interface
 ```
 

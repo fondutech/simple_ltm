@@ -13,7 +13,9 @@ class TestChainlitIntegration:
     
     def test_app_imports(self):
         """Test that all required imports work."""
-        from simple_ltm import app
+        import sys
+        sys.path.insert(0, 'simple_ltm')
+        import app
         assert hasattr(app, 'start')
         assert hasattr(app, 'handle_message')
         assert hasattr(app, 'clear_memory')

@@ -12,7 +12,7 @@ from typing import Optional
 from langchain_anthropic import ChatAnthropic
 from langchain_core.tools import tool
 
-from .prompts import format_update_prompt
+from prompts import format_update_prompt
 
 
 class LongTermMemory:

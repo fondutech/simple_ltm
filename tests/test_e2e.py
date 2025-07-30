@@ -12,7 +12,10 @@ from pathlib import Path
 import pytest
 from langchain_anthropic import ChatAnthropic
 
-from simple_ltm import LongTermMemory, MemoryAgent
+import sys
+sys.path.insert(0, 'simple_ltm')
+from memory import LongTermMemory
+from agent import MemoryAgent
 
 
 @pytest.fixture

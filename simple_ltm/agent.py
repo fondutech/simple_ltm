@@ -22,8 +22,8 @@ from langchain_core.runnables import RunnableConfig
 from langgraph.graph import StateGraph, END
 from langgraph.graph.message import add_messages
 
-from .memory import LongTermMemory, create_memory_tool
-from .prompts import format_agent_system_prompt
+from memory import LongTermMemory, create_memory_tool
+from prompts import format_agent_system_prompt
 
 
 

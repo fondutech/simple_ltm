@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from .meta_prompts import META_CONTEXT, DOWNSTREAM_USE_CASES, TOOL_INSTRUCTIONS
+from meta_prompts import META_CONTEXT, DOWNSTREAM_USE_CASES, TOOL_INSTRUCTIONS
 
 
 # System prompt agent sees throughout conversation
