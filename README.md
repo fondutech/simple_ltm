@@ -107,6 +107,11 @@ poetry run pytest -k TestMemoryAgent
 
 The power is in the simplicity. Sometimes two strings is all you need.
 
+## Credits
+
+- **Implementation**: Eddie Landesberg
+- **Architecture Design**: Based on the Long Term Memory Fundamentals slides from the Maven class "Building LLM Applications for Data Scientists and Software Engineers" by Hugo Bowne-Anderson and Stefan Krawczyk
+
 ## License
 
 MIT

@@ -2,7 +2,7 @@
 name = "simple-ltm"
 version = "0.1.0"
 description = "A string-based long-term memory implementation using LangGraph"
-authors = ["Your Name"]
+authors = ["Eddie Landesberg"]
 readme = "README.md"
 packages = [{include = "simple_ltm"}]
 
