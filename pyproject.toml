@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A string-based long-term memory implementation using LangGraph"
 authors = ["Your Name"]
 readme = "README.md"
-packages = [{include = "simple_ltm", from = "src"}]
+packages = [{include = "simple_ltm"}]
 
 [tool.poetry.scripts]
 ltm-info = "simple_ltm.app:main"

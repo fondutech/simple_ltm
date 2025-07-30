@@ -8,12 +8,12 @@ def main():
     print("   export ANTHROPIC_API_KEY='your-key-here'")
     print()
     print("2. Run the Chainlit app:")
-    print("   chainlit run src/simple_ltm/app.py")
+    print("   chainlit run simple_ltm/app.py")
     print()
     print("3. Open http://localhost:8000 in your browser")
     print()
     print("For development with auto-reload:")
-    print("   chainlit run src/simple_ltm/app.py -w")
+    print("   chainlit run simple_ltm/app.py -w")
 
 if __name__ == "__main__":
     main()

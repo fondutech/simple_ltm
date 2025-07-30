@@ -24,7 +24,7 @@ poetry install
 export ANTHROPIC_API_KEY="your-key"
 
 # Run the web UI
-chainlit run src/simple_ltm/app.py
+chainlit run simple_ltm/app.py
 ```
 
 ## How It Works
