@@ -1,6 +1,6 @@
 # Simple Long-Term Memory
 
-A teaching example showing how two strings and an LLM can create a powerful memory system for AI assistants.
+A teaching example showing how two strings and an LLM can create a powerful memory system for AI assistants. This is an implementation of the first architecture described in the [Long Term Memory Fundamentals](Long%20Term%20Memory%20Fundamentals.pdf) paper.
 
 ## The Core Idea
 
@@ -13,6 +13,14 @@ merged_memory = llm.merge(existing_memory, new_info)
 ```
 
 No vector databases. No embeddings. No retrieval algorithms. Just intelligent text merging.
+
+## Background
+
+This implementation demonstrates the "Single String Memory" architecture from the Long Term Memory Fundamentals paper - the simplest possible approach where:
+- Each user's entire memory is one text string
+- The LLM decides what to remember
+- New information is merged with existing memory
+- Everything fits in the context window
 
 ## Quick Start
 
