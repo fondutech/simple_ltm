@@ -162,7 +162,7 @@ def main():
     """Entry point for the Chainlit app."""
     # This is called by poetry script, but chainlit run is the actual entry
     print("To run the Chainlit app, use:")
-    print("cd simple_ltm && chainlit run app.py")
+    print("cd simple_ltm && poetry run chainlit run app.py")
 
 
 if __name__ == "__main__":

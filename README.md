@@ -22,17 +22,27 @@ This implementation demonstrates the "Single String Memory" architecture from th
 - New information is merged with existing memory
 - Everything fits in the context window
 
+## Prerequisites
+
+- Python 3.9 or higher
+- Poetry ([install instructions](https://python-poetry.org/docs/#installation))
+- An Anthropic API key ([get one here](https://console.anthropic.com/))
+
 ## Quick Start
 
 ```bash
-# Install dependencies and package
+# Clone the repository
+git clone https://github.com/fondutech/simple_ltm.git
+cd simple_ltm
+
+# Install dependencies
 poetry install
 
 # Set API key
 export ANTHROPIC_API_KEY="your-key"
 
-# Run the web UI
-cd simple_ltm && chainlit run app.py
+# Run the web UI (from project root)
+cd simple_ltm && poetry run chainlit run app.py
 ```
 
 ## How It Works
