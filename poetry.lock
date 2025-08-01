@@ -961,13 +961,13 @@ orjson = ">=3.10.1"
 
 [[package]]
 name = "langsmith"
-version = "0.4.8"
+version = "0.4.9"
 description = "Client library to connect to the LangSmith LLM Tracing and Evaluation Platform."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "langsmith-0.4.8-py3-none-any.whl", hash = "sha256:ca2f6024ab9d2cd4d091b2e5b58a5d2cb0c354a0c84fe214145a89ad450abae0"},
-    {file = "langsmith-0.4.8.tar.gz", hash = "sha256:50eccb744473dd6bd3e0fe024786e2196b1f8598f8defffce7ac31113d6c140f"},
+    {file = "langsmith-0.4.9-py3-none-any.whl", hash = "sha256:7eab704109914e3b52124b7a9932ea074c3d022a8ded6354b8deb4f83ab741af"},
+    {file = "langsmith-0.4.9.tar.gz", hash = "sha256:559c8d3687e9e5e89e3b24f0400f946dd4681c5e10184ea9172e0825790c6b67"},
 ]
 
 [package.dependencies]
@@ -1155,10 +1155,7 @@ files = [
 
 [package.dependencies]
 googleapis-common-protos = ">=1.57,<2.0"
-grpcio = [
-    {version = ">=1.63.2,<2.0.0", markers = "python_version < \"3.13\""},
-    {version = ">=1.66.2,<2.0.0", markers = "python_version >= \"3.13\""},
-]
+grpcio = {version = ">=1.63.2,<2.0.0", markers = "python_version < \"3.13\""}
 opentelemetry-api = ">=1.15,<2.0"
 opentelemetry-exporter-otlp-proto-common = "1.35.0"
 opentelemetry-proto = "1.35.0"
@@ -2499,5 +2496,5 @@ cffi = ["cffi (>=1.11)"]
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.9"
-content-hash = "f8c56f79924628cfc271d01db1d8e6ac404a9f96f070d02fdb4c706f41733cd1"
+python-versions = ">=3.9,<3.13"
+content-hash = "c041d120aa8afb81817a288c3dcc66c205210412d60e2e94acfccca3d353796d"
