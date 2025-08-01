@@ -10,7 +10,7 @@ packages = [{include = "simple_ltm"}]
 ltm-info = "simple_ltm.app:main"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.13"
 langchain = "^0.3.26"
 langgraph = "^0.5.2"
 langchain-anthropic = "^0.3.17"

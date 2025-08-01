@@ -24,7 +24,7 @@ This implementation demonstrates the "Single String Memory" architecture from th
 
 ## Prerequisites
 
-- Python 3.9 or higher
+- Python 3.9-3.12 (3.13 not yet supported due to Chainlit compatibility)
 - Poetry ([install instructions](https://python-poetry.org/docs/#installation))
 - An Anthropic API key ([get one here](https://console.anthropic.com/))
 
